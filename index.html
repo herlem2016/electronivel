@@ -1,0 +1,50 @@
+<!DOCTYPE html>
+<html>
+    <head>
+		<style>
+			html,body{background:blue;margin:0px;height:100%;width:100%;font-family:verdana;}
+			.contenedores{width:70%;margin:auto;height:80%;}
+			.etiqueta{color:white;font-weight:bolder;font-size:20px;height:5%;overflow:hidden;;}
+			.contenedor{height:38%;}
+			.boquilla{width:50%;height:10%;border:3px solid white;border-bottom:0px;margin:auto;}
+			.boquilla > div{width:100%;height:100%;float:left;background-color:blue;margin-top:3px;}
+			.cuerpo{width:100%;height:90%;border:3px 3px 3px 0px;border-color:white;border-style:solid;margin:auto;}
+			p.etiqueta{text-align:center;}
+			div.etiqueta.roja{background-color:green;text-align:center;margin-bottom:3%;margin-top:0px;}
+			div.etiqueta{margin-top:5%;}
+			div.botonera{height:10%;}
+			div.botonera button{height:100%;border-radius:100%;display:block;border:0px;background-color:black;color:white;float:left;margin-left:12%;}
+			div.botonera button:active{background-color:white;color:black;}
+			
+		</style>
+			
+		<script></script>
+    </head>
+
+    <BODY>
+		<div class="etiqueta roja">BOMBA ACTIVA</div>
+		<div class="contenedores">
+			<div class="etiqueta">T:</div>
+			<div class="contenedor">
+				<div class="boquilla">
+					<div class="comp"></div>
+				</div>
+				<div class="cuerpo"></div>
+			</div>
+			<div class="etiqueta">C:</div>
+			<div class="contenedor">
+				<div class="boquilla">
+					<div class="comp"></div>
+				</div>
+				<div class="cuerpo"></div>
+			</div>
+			<p class="etiqueta">SEMIAUTOMATICO</p>
+		</div>
+		<div class="botonera">
+			<button style="padding-left:6%;padding-right:6%;">ON</button>
+			<button>MODO</button>
+			<button>BOMBA</button>
+		</div>
+    </BODY>
+	 
+</HTML>
