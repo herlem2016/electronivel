@@ -7,41 +7,99 @@
 			.etiqueta{color:white;font-weight:bolder;font-size:20px;height:5%;overflow:hidden;;}
 			.contenedor{height:38%;}
 			.boquilla{width:50%;height:10%;border:3px solid white;border-bottom:0px;margin:auto;}
-			.boquilla > div{width:100%;height:100%;float:left;background-color:blue;margin-top:3px;}
-			.cuerpo{width:100%;height:90%;border:3px 3px 3px 0px;border-color:white;border-style:solid;margin:auto;}
+			.boquilla > div{width:100%;height:100%;float:left;background-color:blue;margin-top:3px;z-index:100;position:relative;}
+			.cuerpo{width:100%;height:90%;border:3px 3px 3px 0px;border-color:white;border-style:solid;margin:auto;position:relative;}
 			p.etiqueta{text-align:center;}
-			div.etiqueta.roja{background-color:green;text-align:center;margin-bottom:3%;margin-top:0px;}
+			div.etiqueta.roja{text-align:center;margin-bottom:3%;margin-top:0px;}
 			div.etiqueta{margin-top:5%;}
 			div.botonera{height:10%;}
 			div.botonera button{height:100%;border-radius:100%;display:block;border:0px;background-color:black;color:white;float:left;margin-left:12%;}
-			div.botonera button:active{background-color:white;color:black;}
-			
+			div.botonera button:active{background-color:white;color:black;}	
+			.nivel{width:100%;position:absolute;bottom:0px;background-color:white;}			
+			.porcentaje{width:20%;position:absolute;z-index:100;bottom:40%;height:10%;text-align:center;padding:2%;background-color:blue;color:white;font-size:20px;margin-left:40%;}
 		</style>
 			
-		<script></script>
+		<script src="jquery.js"></script>
+		<script>
+			var url='http://192.168.0.101/';
+			
+			function GetVal(nodo,tag){
+				try{
+					return nodo.getElementsByTagName(tag)[0].childNodes[0].nodeValue;
+				}catch(e){
+					return null;
+				}
+			}
+			
+			function CargarEstado(){
+				$.post(url,function(dxml){
+					var modo=GetVal(dxml,"modo");
+					var power=GetVal(dxml,"power");
+					var bomba=GetVal(dxml,"bomba");
+					var nt=GetVal(dxml,"nt");
+					var nc=GetVal(dxml,"nc");
+					
+					if(modo==1){
+						document.getElementById("modo").innerHTML="AUTOMATICO";
+					}else if(modo==2){
+						document.getElementById("modo").innerHTML="SEMIAUTOMATICO";
+					}else if(modo==3){
+						document.getElementById("modo").innerHTML="MANUAL";
+					}
+					
+					if(power==1){
+						document.getElementById("power").innerHTML="OFF";
+						document.getElementById("power").style.backgroundColor="red";
+					}else if(power==0){
+						document.getElementById("power").innerHTML="ON";
+						document.getElementById("power").style.backgroundColor="black";
+					}
+					
+					if(bomba==1){
+						document.getElementById("bomba").innerHTML="BOMBA ACTIVA";
+						document.getElementById("bomba").style.backgroundColor="green";
+					}else if(bomba==0){
+						document.getElementById("bomba").innerHTML="BOMBA APAGADA";
+						document.getElementById("bomba").style.backgroundColor="black";
+					}
+					
+					document.getElementById("pt").innerHTML=parseInt((parseInt(nt,10)/1024) * 100,10)+ "%";
+					document.getElementById("pc").innerHTML=parseInt((parseInt(nc,10)/1024) * 100,10)+ "%";
+					document.getElementById("nit").style.height=parseInt((parseInt(nt,10)/1024) * 100,10)+ "%";
+					document.getElementById("nic").style.height=parseInt((parseInt(nc,10)/1024) * 100,10)+ "%";
+					
+				});
+			}
+		</script>
     </head>
 
-    <BODY>
-		<div class="etiqueta roja">BOMBA ACTIVA</div>
+    <BODY onload="CargarEstado();window.setInterval('CargarEstado();',500)">
+		<div class="etiqueta roja" id="bomba">-DESC-</div>
 		<div class="contenedores">
 			<div class="etiqueta">T:</div>
-			<div class="contenedor">
+			<div class="contenedor"id="tinaco">
 				<div class="boquilla">
 					<div class="comp"></div>
 				</div>
-				<div class="cuerpo"></div>
+				<div class="cuerpo">
+					<div class="porcentaje" id="pt"></div>
+					<div class="nivel" id="nit"></div>
+				</div>
 			</div>
 			<div class="etiqueta">C:</div>
-			<div class="contenedor">
+			<div class="contenedor" id="cisterna">
 				<div class="boquilla">
 					<div class="comp"></div>
 				</div>
-				<div class="cuerpo"></div>
+				<div class="cuerpo">
+					<div class="porcentaje" id="pc"></div>
+					<div class="nivel" id="nic"></div>
+				</div>
 			</div>
-			<p class="etiqueta">SEMIAUTOMATICO</p>
+			<p class="etiqueta" id="modo">-DESC-</p>
 		</div>
 		<div class="botonera">
-			<button style="padding-left:6%;padding-right:6%;">ON</button>
+			<button style="padding-left:6%;padding-right:6%;" id="power">ON</button>
 			<button>MODO</button>
 			<button>BOMBA</button>
 		</div>
