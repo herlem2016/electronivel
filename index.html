@@ -1,6 +1,12 @@
 <!DOCTYPE html>
 <html>
     <head>
+		<meta http-equiv="Content-Security-Policy" 
+    content="default-src * 'self' 'unsafe-inline' data: gap: 'unsafe-eval';
+    style-src * 'self' 'unsafe-inline'; 
+    connect-src * ; 
+    script-src * 'self' 'unsafe-inline'; 
+    media-src *">
 		<style>
 			html,body{background:blue;margin:0px;height:100%;width:100%;font-family:verdana;}
 			.contenedores{width:70%;margin:auto;height:80%;}
@@ -22,6 +28,8 @@
 		<script src="jquery.js"></script>
 		<script>
 			var url='http://192.168.0.101/';
+			
+			$.support.cors=true;
 			
 			function GetVal(nodo,tag){
 				try{
