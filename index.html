@@ -41,6 +41,12 @@
 			
 			function CargarEstado(){
 				$.post(url,function(dxml){
+					Procesar(dxml);
+				});
+			}
+			
+			function Procesar(dxml){
+				
 					var modo=GetVal(dxml,"modo");
 					var power=GetVal(dxml,"power");
 					var bomba=GetVal(dxml,"bomba");
@@ -75,9 +81,12 @@
 					document.getElementById("pc").innerHTML=parseInt((parseInt(nc,10)/1024) * 100,10)+ "%";
 					document.getElementById("nit").style.height=parseInt((parseInt(nt,10)/1024) * 100,10)+ "%";
 					document.getElementById("nic").style.height=parseInt((parseInt(nc,10)/1024) * 100,10)+ "%";
-					
-				});
 			}
+			
+			function Click(indice){
+				$.post(url+"?btn="+indice,function(dxml){Procesar(dxml);});
+			}
+			
 		</script>
     </head>
 
@@ -107,9 +116,9 @@
 			<p class="etiqueta" id="modo">-DESC-</p>
 		</div>
 		<div class="botonera">
-			<button style="padding-left:6%;padding-right:6%;" id="power">ON</button>
-			<button>MODO</button>
-			<button>BOMBA</button>
+			<button style="padding-left:6%;padding-right:6%;" id="power" onclick="Click(3);" >ON</button>
+			<button onclick="Click(1);">MODO</button>
+			<button onclick="Click(2);">BOMBA</button>
 		</div>
     </BODY>
 	 
