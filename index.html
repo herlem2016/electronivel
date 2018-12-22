@@ -8,21 +8,21 @@
     script-src * 'self' 'unsafe-inline'; 
     media-src *">
 		<style>
-			html,body{background:blue;margin:0px;height:100%;width:100%;font-family:verdana;}
+			html,body{background:#333;margin:0px;height:100%;width:100%;font-family:verdana;}
 			.contenedores{width:70%;margin:auto;height:80%;}
-			.etiqueta{color:white;font-weight:bolder;font-size:20px;height:5%;overflow:hidden;;}
+			.etiqueta{color:white;font-weight:normal;font-size:20px;height:5%;overflow:hidden;;}
 			.contenedor{height:38%;}
-			.boquilla{width:50%;height:10%;border:3px solid white;border-bottom:0px;margin:auto;}
-			.boquilla > div{width:100%;height:100%;float:left;background-color:blue;margin-top:3px;z-index:100;position:relative;}
-			.cuerpo{width:100%;height:90%;border:3px 3px 3px 0px;border-color:white;border-style:solid;margin:auto;position:relative;}
+			.boquilla{width:50%;height:10%;border:1px solid blue;border-bottom:0px;margin:auto;}
+			.boquilla > div{width:100%;height:100%;float:left;background-color:#333;margin-top:3px;z-index:100;position:relative;}
+			.cuerpo{width:100%;height:90%;border-width:1px 1px 1px 1px;border-color:blue;border-style:solid;margin:auto;position:relative;}
 			p.etiqueta{text-align:center;}
-			div.etiqueta.roja{text-align:center;margin-bottom:3%;margin-top:0px;}
+			div.etiqueta.roja{text-align:center;margin-bottom:3%;padding-top:3px;font-size:17px;margin-top:0px;}
 			div.etiqueta{margin-top:5%;}
 			div.botonera{height:10%;}
 			div.botonera button{height:100%;border-radius:100%;display:block;border:0px;background-color:black;color:white;float:left;margin-left:12%;}
 			div.botonera button:active{background-color:white;color:black;}	
-			.nivel{width:100%;position:absolute;bottom:0px;background-color:white;}			
-			.porcentaje{width:20%;position:absolute;z-index:100;bottom:40%;text-align:center;padding:2%;background-color:blue;color:white;font-size:20px;margin-left:40%;}
+			.nivel{width:100%;position:absolute;bottom:0px;background-color:blue;}			
+			.porcentaje{width:20%;position:absolute;z-index:100;bottom:40%;text-align:center;padding:2%;color:white;font-size:20px;margin-left:40%;}
 		</style>
 			
 		<script src="jquery.js"></script>
@@ -63,24 +63,27 @@
 					
 					if(power==1){
 						document.getElementById("power").innerHTML="OFF";
-						document.getElementById("power").style.backgroundColor="red";
+						document.getElementById("power").style.backgroundColor="rgb(242, 26, 18)";
 					}else if(power==0){
 						document.getElementById("power").innerHTML="ON";
-						document.getElementById("power").style.backgroundColor="black";
+						document.getElementById("power").style.backgroundColor="#555";
 					}
 					
 					if(bomba==1){
 						document.getElementById("bomba").innerHTML="BOMBA ACTIVA";
-						document.getElementById("bomba").style.backgroundColor="green";
+						document.getElementById("bomba").style.backgroundColor="rgb(41, 134, 194)";
+						document.getElementById("bomba").style.color="#0c2f05";
 					}else if(bomba==0){
 						document.getElementById("bomba").innerHTML="BOMBA APAGADA";
-						document.getElementById("bomba").style.backgroundColor="black";
+						document.getElementById("bomba").style.backgroundColor="#555";
 					}
 					
-					document.getElementById("pt").innerHTML=parseInt((parseInt(nt,10)/1024) * 100,10)+ "%";
-					document.getElementById("pc").innerHTML=parseInt((parseInt(nc,10)/1024) * 100,10)+ "%";
-					document.getElementById("nit").style.height=parseInt((parseInt(nt,10)/1024) * 100,10)+ "%";
-					document.getElementById("nic").style.height=parseInt((parseInt(nc,10)/1024) * 100,10)+ "%";
+					var _nt=parseInt(nt,10)/8-10>=0?(parseInt(nt,10)/8-10>=98?98:parseInt((parseInt(nt,10)/8-10),10)):0;
+					var _nc=parseInt(nc,10)/8-10>=0?(parseInt(nc,10)/8-10>=98?98:parseInt((parseInt(nc,10)/8-10),10)):0;
+					document.getElementById("pt").innerHTML=_nt+ "%";
+					document.getElementById("pc").innerHTML=_nc+ "%";
+					document.getElementById("nit").style.height=_nt+ "%";
+					document.getElementById("nic").style.height=_nc+ "%";
 			}
 			
 			function Click(indice){
